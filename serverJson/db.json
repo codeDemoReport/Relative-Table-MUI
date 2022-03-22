@@ -1,0 +1,30 @@
+{
+  "cars": [
+    {
+      "product_id": 1,
+      "product_name": "Toyota",
+      "producer": "Japan",
+      "description": "red - 5 seats"
+    },
+    {
+      "product_id": 2,
+      "product_name": "Honda",
+      "producer": "Japan",
+      "description": "red - 5 seats"
+    }
+  ],
+  "food": [
+    {
+      "product_id": 1,
+      "product_name": "Banh Mi",
+      "producer": "Viet Nam",
+      "description": "fast food"
+    },
+    {
+      "product_id": 2,
+      "product_name": "Pho",
+      "producer": "Viet Nam",
+      "description": "Delicious"
+    }
+  ]
+}

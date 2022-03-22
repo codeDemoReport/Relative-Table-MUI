@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import TableChild from "../components/TableChild";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { getCars, getFood } from "../redux/action/productsAction";
 
 import {
   Table,
@@ -13,6 +13,8 @@ import {
   TableCell,
 } from "@mui/material";
 
+
+
 const colTable = [
   { id: "more", lable: "", maxWidth: "90px" },
   { id: "product_id", lable: "Product id", maxWidth: "100px" },
@@ -22,75 +24,16 @@ const colTable = [
   { id: "action", lable: "Action" },
 ];
 
-const productList = {
-  cars: [
-    {
-      product_id: 1,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 2,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 3,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 4,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 5,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-  ],
-  food: [
-    {
-      product_id: 1,
-      product_name: "Pho",
-      producer: "Viet Nam",
-      description: "Delicious",
-    },
-    {
-      product_id: 2,
-      product_name: "Banh my",
-      producer: "Viet Nam",
-      description: "Cheap",
-    },
-    {
-      product_id: 3,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 4,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-    {
-      product_id: 5,
-      product_name: "toyota",
-      producer: "Japan",
-      description: "Red - 4 seats",
-    },
-  ],
-};
 
 function ListProduct(props) {
-  const [showMore, setShowMore] = useState(false);
+  const dispatch = useDispatch();
+  const { products } = useSelector(state => state)
+  
+  console.log(products)
+  useEffect(() => {
+    dispatch(getCars());
+    dispatch(getFood());
+  }, []);
 
   return (
     <Paper
@@ -116,8 +59,8 @@ function ListProduct(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableChild tableName={"Cars"} products={productList.cars} />
-            <TableChild tableName={"Food"} products={productList.food} />
+            <TableChild tableName={"Cars"} products={products.cars} />
+            <TableChild tableName={"Food"} products={products.food} />
           </TableBody>
         </Table>
       </TableContainer>

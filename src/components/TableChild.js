@@ -12,13 +12,25 @@ import {
   IconButton,
 } from "@mui/material";
 import { CheckBox } from "@mui/icons-material";
+import EditProduct from "./EditProduct";
 
 function TableChild({ tableName, products }) {
   const [showMore, setShowMore] = useState(false);
-  console.log(tableName);
-  console.log(products);
+  const [showEdit, setShowEdit] = useState(false)
+  const [selectedProduct, setSelected] = useState({})
+
+  const handleClose = () => {
+    setShowEdit(false)
+  }
+
+  const handleEdit = (element) => {
+    setSelected(element);
+    setShowEdit(true)
+  }
+
   return (
     <>
+      {showEdit && <EditProduct open={showEdit} handleClose={handleClose} product={ selectedProduct}/>}
       <TableRow>
         <TableCell>
           {tableName}
@@ -26,7 +38,6 @@ function TableChild({ tableName, products }) {
             {showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
           </IconButton>
         </TableCell>
-        {/* <TableCell onClick={() => setShowMore(!showMore)}></TableCell> */}
       </TableRow>
       {showMore &&
         products.map((element) => (
@@ -39,7 +50,7 @@ function TableChild({ tableName, products }) {
             <TableCell scope="producer">{element.producer}</TableCell>
             <TableCell scope="description">{element.description}</TableCell>
             <TableCell>
-              <Button>Update</Button>
+              <Button onClick={() => handleEdit(element)}>Update</Button>
               <Button>Delete</Button>
             </TableCell>
           </TableRow>
