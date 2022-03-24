@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import TableChild from "../components/TableChild";
-import { getCars, getFood } from "../redux/action/productsAction";
+import {
+  getCars,
+  getFood,
+  editCar,
+  editFood,
+  deleteCar,
+  deleteFood,
+} from "../redux/action/productsAction";
 
 import {
   Table,
@@ -13,8 +20,6 @@ import {
   TableCell,
 } from "@mui/material";
 
-
-
 const colTable = [
   { id: "more", lable: "", maxWidth: "90px" },
   { id: "product_id", lable: "Product id", maxWidth: "100px" },
@@ -24,12 +29,10 @@ const colTable = [
   { id: "action", lable: "Action" },
 ];
 
-
 function ListProduct(props) {
   const dispatch = useDispatch();
-  const { products } = useSelector(state => state)
-  
-  console.log(products)
+  const { products } = useSelector((state) => state);
+
   useEffect(() => {
     dispatch(getCars());
     dispatch(getFood());
@@ -59,8 +62,18 @@ function ListProduct(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableChild tableName={"Cars"} products={products.cars} />
-            <TableChild tableName={"Food"} products={products.food} />
+            <TableChild
+              tableName={"Cars"}
+              products={products.cars}
+              update={editCar}
+              onDelete={deleteCar}
+            />
+            <TableChild
+              tableName={"Food"}
+              products={products.food}
+              update={editFood}
+              onDelete={deleteFood}
+            />
           </TableBody>
         </Table>
       </TableContainer>

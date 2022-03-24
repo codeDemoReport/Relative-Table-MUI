@@ -1,36 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+
 import {
-  Table,
   TableRow,
-  TableBody,
-  Paper,
-  TableContainer,
   TableCell,
   Button,
   IconButton,
+  Checkbox,
 } from "@mui/material";
-import { CheckBox } from "@mui/icons-material";
 import EditProduct from "./EditProduct";
 
-function TableChild({ tableName, products }) {
+import DialogDelete from "./DialogDelete";
+
+function TableChild({ tableName, products, update, onDelete }) {
   const [showMore, setShowMore] = useState(false);
-  const [showEdit, setShowEdit] = useState(false)
-  const [selectedProduct, setSelected] = useState({})
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [ItemChecked, setItemChecked] = useState([]);
+  const [selectedProduct, setSelected] = useState({});
+  const [data, setData] = useState(products);
 
-  const handleClose = () => {
-    setShowEdit(false)
-  }
+  const selectedItem = (element) => {
+    if (ItemChecked.includes(element.id)) {
+      let newArr = ItemChecked.filter((data) => data !== element.id);
+      setItemChecked([...newArr]);
+    } else setItemChecked([...ItemChecked, element.id]);
+  };
 
-  const handleEdit = (element) => {
+  const handleCloseEdit = () => {
+    setShowModalEdit(false);
+  };
+  const handleCloseDelete = () => {
+    setShowModalDelete(false);
+  };
+
+  const handleShowModalDelete = (element) => {
     setSelected(element);
-    setShowEdit(true)
-  }
+    setShowModalDelete(true);
+  };
+  const handleShowModalEdit = (element) => {
+    setSelected(element);
+    setShowModalEdit(true);
+  };
+
+  const handleDragEnd = (e) => {
+    if (!e.destination) return;
+    let tempData = Array.from(data);
+    let [source_data] = tempData.splice(e.source.index, 1);
+    tempData.splice(e.destination.index, 0, source_data);
+    setData(tempData);
+  };
 
   return (
     <>
-      {showEdit && <EditProduct open={showEdit} handleClose={handleClose} product={ selectedProduct}/>}
+      {console.log("Tablechild re-render")}
+      {showModalEdit && (
+        <EditProduct
+          onUpdate={update}
+          open={showModalEdit}
+          handleClose={handleCloseEdit}
+          product={selectedProduct}
+        />
+      )}
+
+      <DialogDelete
+        open={showModalDelete}
+        handleClose={handleCloseDelete}
+        product={selectedProduct}
+        onDelete={onDelete}
+      />
       <TableRow>
         <TableCell>
           {tableName}
@@ -41,17 +81,24 @@ function TableChild({ tableName, products }) {
       </TableRow>
       {showMore &&
         products.map((element) => (
-          <TableRow selected={true} key={element.product_id}>
+          <TableRow selected={true} key={element.id}>
             <TableCell>
-              <CheckBox />
+              <Checkbox
+                checked={ItemChecked.includes(element.id)}
+                onClick={() => selectedItem(element)}
+              />
             </TableCell>
-            <TableCell scope="product_id">{element.product_id}</TableCell>
-            <TableCell scope="product_name">{element.product_name}</TableCell>
-            <TableCell scope="producer">{element.producer}</TableCell>
-            <TableCell scope="description">{element.description}</TableCell>
+            <TableCell>{element.id}</TableCell>
+            <TableCell>{element.product_name}</TableCell>
+            <TableCell>{element.producer}</TableCell>
+            <TableCell>{element.description}</TableCell>
             <TableCell>
-              <Button onClick={() => handleEdit(element)}>Update</Button>
-              <Button>Delete</Button>
+              <Button onClick={() => handleShowModalEdit(element)}>
+                Update
+              </Button>
+              <Button onClick={() => handleShowModalDelete(element)}>
+                Delete
+              </Button>
             </TableCell>
           </TableRow>
         ))}
@@ -59,4 +106,4 @@ function TableChild({ tableName, products }) {
   );
 }
 
-export default TableChild;
+export default memo(TableChild);

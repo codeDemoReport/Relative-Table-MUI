@@ -1,8 +1,8 @@
 import GlOBALTYPE from "../action/globalType";
 
 const initialState = {
-  cars: [], 
-  food: []
+  cars: [],
+  food: [],
 };
 
 const productsReducer = (state = initialState, action) => {
