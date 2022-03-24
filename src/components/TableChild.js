@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 import {
   TableRow,
@@ -20,7 +20,6 @@ function TableChild({ tableName, products, update, onDelete }) {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [ItemChecked, setItemChecked] = useState([]);
   const [selectedProduct, setSelected] = useState({});
-  const [data, setData] = useState(products);
 
   const selectedItem = (element) => {
     if (ItemChecked.includes(element.id)) {
@@ -43,14 +42,6 @@ function TableChild({ tableName, products, update, onDelete }) {
   const handleShowModalEdit = (element) => {
     setSelected(element);
     setShowModalEdit(true);
-  };
-
-  const handleDragEnd = (e) => {
-    if (!e.destination) return;
-    let tempData = Array.from(data);
-    let [source_data] = tempData.splice(e.source.index, 1);
-    tempData.splice(e.destination.index, 0, source_data);
-    setData(tempData);
   };
 
   return (
@@ -76,6 +67,9 @@ function TableChild({ tableName, products, update, onDelete }) {
           {tableName}
           <IconButton onClick={() => setShowMore(!showMore)}>
             {showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+          </IconButton>
+          <IconButton disabled={ItemChecked <= 0}>
+            <DeleteOutlinedIcon />
           </IconButton>
         </TableCell>
       </TableRow>

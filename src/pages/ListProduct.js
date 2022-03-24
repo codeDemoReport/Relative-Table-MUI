@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 
 const colTable = [
-  { id: "more", lable: "", maxWidth: "90px" },
+  { id: "more", lable: "", maxWidth: "120px" },
   { id: "product_id", lable: "Product id", maxWidth: "100px" },
   { id: "product_name", lable: "Product Name", maxWidth: "150px" },
   { id: "producer", lable: "Producer", maxWidth: "150px" },

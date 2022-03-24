@@ -1,7 +1,19 @@
 {
   "cars": [
     {
+      "id": 1,
+      "product_name": "Honda",
+      "producer": "Japan",
+      "description": "red - 5 seats"
+    },
+    {
       "id": 2,
+      "product_name": "Honda",
+      "producer": "Japan",
+      "description": "red - 5 seats"
+    },
+    {
+      "id": 3,
       "product_name": "Honda",
       "producer": "Japan",
       "description": "red - 5 seats"
@@ -16,9 +28,15 @@
     },
     {
       "id": 2,
-      "product_name": "Pho1",
+      "product_name": "Banh My",
       "producer": "Viet Nam",
-      "description": "Delicious"
+      "description": "Cheap"
+    },
+    {
+      "id": 3,
+      "product_name": "Banh My",
+      "producer": "Viet Nam",
+      "description": "Cheap"
     }
   ]
 }
