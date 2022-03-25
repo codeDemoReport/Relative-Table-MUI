@@ -22,21 +22,21 @@
   "food": [
     {
       "id": 1,
-      "product_name": "Banh My",
+      "product_name": "Pho",
       "producer": "Viet Nam",
-      "description": "Cheap"
+      "description": "Delicious"
     },
     {
       "id": 2,
-      "product_name": "Banh My",
+      "product_name": "Com",
       "producer": "Viet Nam",
       "description": "Cheap"
     },
     {
       "id": 3,
-      "product_name": "Banh My",
+      "product_name": "Bun bo",
       "producer": "Viet Nam",
-      "description": "Cheap"
+      "description": "Delicious"
     }
   ]
 }

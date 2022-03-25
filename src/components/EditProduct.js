@@ -39,7 +39,6 @@ function EditProduct({ open, handleClose, product, onUpdate }) {
 
   return (
     <>
-      {console.log("Edit table re-render")}
       <Modal
         open={open}
         onClose={handleClose}

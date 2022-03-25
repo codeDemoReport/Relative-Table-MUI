@@ -18,7 +18,9 @@ import {
   Paper,
   TableContainer,
   TableCell,
+  Typography,
 } from "@mui/material";
+import TableDropAndDrag from "../components/TableDropAndDrag";
 
 const colTable = [
   { id: "more", lable: "", maxWidth: "120px" },
@@ -39,45 +41,50 @@ function ListProduct(props) {
   }, []);
 
   return (
-    <Paper
-      sx={{
-        width: "100%",
-        overflow: "hidden",
-        maxWidth: "80%",
-        margin: "20px auto",
-      }}
-    >
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {colTable.map((element) => (
-                <TableCell
-                  width={element.maxWidth ? element.maxWidth : ""}
-                  key={element.id}
-                >
-                  {element.lable}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableChild
-              tableName={"Cars"}
-              products={products.cars}
-              update={editCar}
-              onDelete={deleteCar}
-            />
-            <TableChild
-              tableName={"Food"}
-              products={products.food}
-              update={editFood}
-              onDelete={deleteFood}
-            />
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+    <>
+      <Paper
+        sx={{
+          width: "100%",
+          overflow: "hidden",
+          maxWidth: "80%",
+          margin: "50px auto",
+        }}
+      >
+        <Typography variant="h4">List Products</Typography>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {colTable.map((element) => (
+                  <TableCell
+                    width={element.maxWidth ? element.maxWidth : ""}
+                    key={element.id}
+                  >
+                    {element.lable}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableChild
+                tableName={"Cars"}
+                products={products.cars}
+                update={editCar}
+                onDelete={deleteCar}
+              />
+              <TableChild
+                tableName={"Food"}
+                products={products.food}
+                update={editFood}
+                onDelete={deleteFood}
+              />
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+
+      <TableDropAndDrag />
+    </>
   );
 }
 
